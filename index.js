@@ -43,8 +43,9 @@ class CrowdSetup {
 
     //When we get our first frame, remove the loading div
     function bootCallback() {
-      document.getElementById("loading").style.visibility = "hidden";
-      document.getElementById("divRange").style.visibility = "visible";
+      // document.getElementById("loading").style.visibility = "hidden";
+      // document.getElementById("divRange").style.visibility = "visible";
+      controls.boot();
     }
 
     //What we do every time the thread has more information for us
