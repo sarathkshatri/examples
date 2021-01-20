@@ -35,9 +35,9 @@ class patient {
       //   // "I stopped"
       // })
       
-      .splice(new FollowInstructions().tree)
+        .splice(new FollowInstructions().tree)
 
-      .splice(new WaitForever().tree)
+        .splice(new WaitForever().tree)
     .end()
     .build();
   }
