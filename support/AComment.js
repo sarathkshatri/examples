@@ -1,5 +1,18 @@
 class AComment {
 
+	owner; //APerson
+	audience; //APerson
+	time; //int
+	text; //string
+	
+	constructor(owner, audience, time, text) {
+		super();
+		this.owner = owner;
+		this.audience = audience;
+		this.time = time;
+		this.text = text;
+	}
+	
 	get Text() {
 		return this.text;
 	}
@@ -31,20 +44,7 @@ class AComment {
 	set Time(time) {
 		this.time = time;
 	}
-	
-	owner; //APerson
-	audience; //APerson
-	time; //int
-	text; //string
-	
-	constructor(owner, audience, time, text) {
-		super();
-		this.owner = owner;
-		this.audience = audience;
-		this.time = time;
-		this.text = text;
-	}
-    
+	   
 	get DecoratedText() {
 		if(this.audience == null) {
 			return this.text;

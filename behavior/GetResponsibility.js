@@ -16,6 +16,8 @@ class GetResponsibility {
 
                     //go through computer entries and find highest priority task
                     // requires looking thru responsibilities to get priority?
+                    // SAME FUNCTION AS GETCOMPUTERRESPONSIBILITY, BUT THE 
+                    // RESPONSIBILITYSUBJECT IS THE PATIENT
                     
                     if (this.responsibility == null) {
                         return fluentBehaviorTree.BehaviorTreeStatus.Failure;

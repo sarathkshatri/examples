@@ -2,7 +2,9 @@
 import GetComputerResponsibility from "../behavior/GetComputerResponsibility.js";
 import GetResponsibility from "../behavior/GetResponsibility.js";
 import GoTo from "../behavior/GoTo.js";
+import HandleEmergency from "../behavior/HandleEmergency.js";
 import HandleResponsibility from "../behavior/HandleResponsibility.js";
+import WaitForResponsibilityPatient from "../behavior/WaitForResponsibilityPatient.js";
 
 class responsibility {
 
@@ -18,6 +20,8 @@ class responsibility {
       let self = this;//Since we need to reference this in anonymous functions, we need a reference
   
       let me = agent;
+
+      let runOnce = false;
       //let myGoal = me.Computer;
       //this.goTo = new GoTo(self.index, myGoal.position);
 
@@ -32,14 +36,14 @@ class responsibility {
         // MAKE OWN FILE IF SHOWS UP ANYWHERE ELSE
         .do("getComputer", (t) => {
             // Not sure if medician subclass is implemented
-            switch(me.getMedicianSubclass()) {
-                case TECH:
+            switch(me.MedicianSubclass) {
+                case Tech:
                     me.Computer(me.locations.find(l => l.name == "TechPlace"));
                     break;
-                case NURSE:
+                case Nurse:
                     me.Computer(me.locations.find(l => l.name == "NursePlace"));
                     break;
-                case RESIDENT:
+                case Resident:
                     me.Computer(me.locations.find(l => l.name == "ResidentStart"));
                     break;
                 }
@@ -47,62 +51,65 @@ class responsibility {
             return fluentBehaviorTree.BehaviorTreeStatus.Success;
         })
 
-        // REPEAT
-            .sequence("Computer Operations")
-                .splice(new GoTo(self.index, me.Computer)) // GO TO COMPUTER
-            
-                .selector("Emergency")
-                    .do("Handle Emergency", (t) => { return fluentBehaviorTree.BehaviorTreeStatus.Failure; }) // PLACEHOLDER
-                    //.inverter("")
-                    .sequence("Computer Stuff")
-                        .splice(new GoTo(self.index, me.Computer)) // GO TO COMPUTER
-                        
-                        //NOT FINISHED
-                        .splice(new GetComputerResponsibility().tree)
-                        //NOT FINISHED
-                        .splice(new HandleResponsibility().tree)
+        .sequence("Computer Operations")
+            .splice(new GoTo(self.index, me.Computer)) // GO TO COMPUTER
+        
+            .selector("Emergency")
+                
+                .splice(new HandleEmergency().tree)
+                
+                //.inverter("")
+                .sequence("Computer Stuff")
+                    .splice(new GoTo(self.index, me.Computer)) // GO TO COMPUTER
+                    
+                    //HOW TO REFERENCE COMPUTER
+                    .splice(new GetComputerResponsibility().tree)
+                    //HOW TO IMPLEMENT COMMENTS SYSTEM
+                    .splice(new HandleResponsibility().tree)
 
-
-                    .end()
-                    //.end()
-                    //.inverter("")
-                    .sequence("Handle Responsibility")
-                        .splice(new GoTo(self.index, me.Computer)) // GO TO COMPUTER
-
-                        //NOT FINISHED
-                        .splice(new GetResponsibility().tree)
-
-                        .do("Go To Responsibility", (t) => {
-                            //WRITE THIS BEHAVIOR
-                        })
-                        .do("Wait For Responsibility Patient", (t) => {
-                            //WRITE THIS BEHAVIOR            
-                        })
-                        .do("Set Up Transport", (t) => {
-                            //WRITE THIS BEHAVIOR            
-                        })
-                        //NOT FINISHED
-                        .splice(new HandleResponsibility().tree)
-
-                        // UNTIL FAIL?
-                        .sequence("Reassess Responsibility")
-                            .do("Reassess", (t) => {
-                                //WRITE THIS BEHAVIOR
-                            })
-                            //NOT FINISHED
-                            .splice(new HandleResponsibility().tree)
-                        .end()
-                    //.end()
-                    .do("Do Nothing", (t) => {
-                        // return running?
-                        // behavior runs once and succeeds, and if called again, returns running
-                    })
 
                 .end()
-            .end()
+                //.end()
+                //.inverter("")
+                .sequence("Handle Responsibility")
+                    .splice(new GoTo(self.index, me.Computer)) // GO TO COMPUTER
 
+                    //NOT FINISHED
+                    .splice(new GetResponsibility().tree)
+
+                    .do("Go To Responsibility", (t) => {
+                        //WRITE THIS BEHAVIOR
+                    })
+                    
+                    .splice(new WaitForResponsibilityPatient().tree)
+
+                    .do("Set Up Transport", (t) => {
+                        //WRITE THIS BEHAVIOR            
+                    })
+                    //NOT FINISHED
+                    .splice(new HandleResponsibility().tree)
+
+                    // UNTIL FAIL?
+                    .sequence("Reassess Responsibility")
+                        .do("Reassess", (t) => {
+                            //WRITE THIS BEHAVIOR
+                        })
+                        //NOT FINISHED
+                        .splice(new HandleResponsibility().tree)
+                    .end()
+                //.end()
+                .do("Do Nothing", (t) => {
+                    if (runOnce)
+                        return fluentBehaviorTree.BehaviorTreeStatus.Success;
+                    runOnce = true;
+                    return fluentBehaviorTree.BehaviorTreeStatus.Running;    
+                })
+
+            .end()
         .end()
-        .build();
+
+      .end()
+      .build();
     }
   
     async update(agentConstants, crowd, msec) {

@@ -12,18 +12,21 @@ class HandleResponsibility {
             .sequence("Handle Responsibility")
                 .do("Do Work", (t) => {
 		
-                    responsibility = me.Responsibility;
+                    let responsibility = me.Responsibility;
                     
                     //timeElapsed = 1.0f/(float)HospitalModel.get().getFPS();
+                    let timeElapsed = 1 / 30;
                     
                     if(!responsibility.isStarted()) {
                         //HospitalModel.get().addComment(me, null, "Go " + responsibility.Name;
                         
                     }
                     
-                    //responsibility.doWork(timeElapsed);
+                    responsibility.doWork(timeElapsed);
                     
                     if(responsibility.isDone()) {
+                        // these were commented out in the original v
+                        
                         //me.removeResponsibility();
                         //HospitalModel.get().addComment(me, null, "Done " + responsibility.getName());
                         
