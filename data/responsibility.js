@@ -4,6 +4,8 @@ import GetResponsibility from "../behavior/GetResponsibility.js";
 import GoTo from "../behavior/GoTo.js";
 import HandleEmergency from "../behavior/HandleEmergency.js";
 import HandleResponsibility from "../behavior/HandleResponsibility.js";
+import Reassess from "../behavior/Reassess.js";
+import SetupTransport from "../behavior/SetupTransport.js";
 import WaitForResponsibilityPatient from "../behavior/WaitForResponsibilityPatient.js";
 
 class responsibility {
@@ -83,17 +85,16 @@ class responsibility {
                     
                     .splice(new WaitForResponsibilityPatient().tree)
 
-                    .do("Set Up Transport", (t) => {
-                        //WRITE THIS BEHAVIOR            
-                    })
+                    //NOT FINISHED
+                    .splice(new SetupTransport().tree)
+
                     //NOT FINISHED
                     .splice(new HandleResponsibility().tree)
 
-                    // UNTIL FAIL?
                     .sequence("Reassess Responsibility")
-                        .do("Reassess", (t) => {
-                            //WRITE THIS BEHAVIOR
-                        })
+                        //NOT FINISHED
+                        .splice(new Reassess().tree)
+                        
                         //NOT FINISHED
                         .splice(new HandleResponsibility().tree)
                     .end()
@@ -113,9 +114,7 @@ class responsibility {
     }
   
     async update(agentConstants, crowd, msec) {
-      //this.toReturn = null;//Set the default return value to null (don't change destination)
       await this.tree.tick({ agentConstants, crowd, msec }) //Call the behavior tree
-      //return this.toReturn; //Return what the behavior tree set the return value to
     }
   
   }

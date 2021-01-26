@@ -12,14 +12,14 @@ class None extends ABehavior{
     }
 
     checkEndOfSimulation() {
-        let _x = this.location.x - this.agents[this.index].destX;
-        let _z = this.location.z - this.agents[this.index].destZ;
-        let _y = this.location.y - this.agents[this.index].destY;
+        let _x = this.location.x - this.agentConstants[this.index].destX;
+        let _z = this.location.z - this.agentConstants[this.index].destZ;
+        let _y = this.location.y - this.agentConstants[this.index].destY;
 
         let distanceToDestination = Math.sqrt(_x * _x + _z * _z);
 
         if (distanceToDestination < 2) {
-            this.agents[this.index].inSimulation = false;
+            this.agentConstants[this.index].inSimulation = false;
             return null;
         }
         else {

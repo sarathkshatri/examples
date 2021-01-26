@@ -10,7 +10,7 @@ class GoToARoom {
         //self.toReturn = new Vector3(self.waypoints[1]);
         //return fluentBehaviorTree.BehaviorTreeStatus.Success;
 
-        let agent = t.crowd.getAgent(t.agents[self.index].idx);
+        let agent = t.crowd.getAgent(t.agentConstants[self.index].idx);
         let loc = new Vector3(agent.npos);
         let waypoint = new Vector3(self.waypoints[1]);
 

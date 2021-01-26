@@ -1,6 +1,5 @@
-import ComputerEntry from "../support/ComputerEntry.js";
-//import support.HospitalModel;
-import AMedician from "../support/AMedician.js";
+import ComputerEntry from "../ComputerEntry.js";
+import AMedician from "../AMedician.js";
 
 class AResponsibility {
 
@@ -12,6 +11,19 @@ class AResponsibility {
 	subject; //ResponsibilitySubject
 	medician; //IMedician
 	
+	calledStarted = false;
+	calledFinished = false;
+
+	constructor(name, duration, entry, priority, subject, medician) {
+		this.name = name;
+		this.duration = duration;
+		this.remaining = duration;
+		this.entry = entry;
+		this.priority = priority;
+		this.subject = subject;
+		this.medician = medician;
+	}
+
 	get Medician() {
 		return this.medician;
 	}
@@ -38,20 +50,6 @@ class AResponsibility {
 
 	set Priority(priority) {
 		this.priority = priority;
-	}
-
-	calledStarted = false;
-	calledFinished = false;
-
-	constructor(name, duration, entry, priority, subject, medician) {
-		super();
-		this.name = name;
-		this.duration = duration;
-		this.remaining = duration;
-		this.entry = entry;
-		this.priority = priority;
-		this.subject = subject;
-		this.medician = medician;
 	}
 
 	get Remaining() {
@@ -103,14 +101,14 @@ class AResponsibility {
 		doFinish();
 	}
 
-	doFinish();
+	doFinish() {}
 
 	start() {
 		console.log("Starting responsibility " + this.name);
 		doStart();
 	};
 
-	doStart() ;
+	doStart() {}
 
 	isDone() {
 		return this.remaining <= 0;

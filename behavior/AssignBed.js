@@ -26,7 +26,7 @@ class AssignBed {
         
         .sequence("Assign Bed")
             .do("Set Bed Location", (t) => {
-              let agent = t.agents.find(a => a.id == self.index);
+              let agent = t.agentConstants.find(a => a.id == self.index);
               //agent.destination = new Vector3(self.waypoints[1]);
               //agent.addRoom(room);
               agent.addRoom(new Vector3(self.waypoints[0]));
@@ -37,8 +37,8 @@ class AssignBed {
           .build();
         }
 
-        async update(agents, positions, msec) {
-            await this.tree.tick({ agents, positions, msec }) //Call the behavior tree
+        async update(agentConstants, positions, msec) {
+            await this.tree.tick({ agentConstants, positions, msec }) //Call the behavior tree
         }
 }
 

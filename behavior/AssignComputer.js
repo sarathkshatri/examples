@@ -20,7 +20,7 @@ class AssignComputer {
           //Set the computer. This is a one-shot behavior since we only want to
           //update the return value once
             .do("Set Computer Location", (t) => {
-              let agent = t.agents.find(a => a.id == self.index);
+              let agent = t.agentConstants.find(a => a.id == self.index);
 
               // REPLACE THIS WITH FIND ROOM BY NAME? 
               agent.setComputer(new Vector3(self.waypoints[0]));
@@ -31,8 +31,8 @@ class AssignComputer {
           .build();
         }
 
-        async update(agents, positions, msec) {
-            await this.tree.tick({ agents, positions, msec }) //Call the behavior tree
+        async update(agentConstants, positions, msec) {
+            await this.tree.tick({ agentConstants, positions, msec }) //Call the behavior tree
         }
 }
 
