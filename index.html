@@ -92,15 +92,36 @@
             agentConstants.push(new MedicalAgent(agent, locationValue));
           //Is this line necessary?
           agentConstants[agentConstants.length - 1].setId(index);
-        })
+        })        
 
-        
-
-        //Start the simulation.
+        // Start the simulation.
         let crowdSetup = new CrowdSetup(objValue, agentConstants, params.secondsOfSimulation, params.millisecondsBetweenFrames, locationValue, window, document.body, colorFunction, simulations, "./crowd-setup/");
+        //
 
         
-        // display a table of computer entries
+        // HEAT MAP
+        // Create a 10x10 grid
+        var gridArray = new Array(10);
+          var column1 = new Array(10);
+          var column2 = new Array(10);
+          var column3 = new Array(10);
+          var column4 = new Array(10);
+          var column5 = new Array(10);
+          var column6 = new Array(10);
+          var column7 = new Array(10);
+          var column8 = new Array(10);
+          var column9 = new Array(10);
+          var column10 = new Array(10);
+
+        //x: 132 ish
+        //z: 116 ish
+        
+        // create button, if button is clicked, it will show and calculate heat map
+        // display 10x10 table, each cell will have a certain color
+        // green for never visited, red for a lot of activity
+
+
+        // TABLE OF COMPUTER ENTRIES - can add new columns as needed
         var table = document.getElementById("ComputerEntryTable");
         // title row
         var titleRow = table.insertRow(0);
