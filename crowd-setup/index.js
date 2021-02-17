@@ -124,13 +124,14 @@ class CrowdSetup {
         console.log("Done with tick callback.")
       } else if (!nurseSim && i > secondsOfSimulation * 1_000 / millisecondsBetweenFrames) { 
         console.log("Done with tick callback.")
+        
+        // SCORING FUNCTION CALL
+        scoring();
+
       } else {
         //If the simulation needs to continue, send on the information
         //about new agentConstants, agentConstants with new destinations, and agentConstants that have left the simulation
         nextTick([JSON.stringify(newAgents, replacer), JSON.stringify(newDestinations, replacer), JSON.stringify(leavingAgents, replacer)])
-
-        // SCORING FUNCTION CALL
-        scoring();
       }
     }
 
@@ -185,7 +186,7 @@ class CrowdSetup {
             agentArray[j] = new Array(agentPositionsRef[j].id, i + 1, 7501);
           }
         }
-
+        
         for (let j = 0; j < agentPositionsRef[i].length; j++)
         {
           if (!agentPositionsRef[i][j].inSimulation)

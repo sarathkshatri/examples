@@ -113,14 +113,62 @@
           var column9 = new Array(10);
           var column10 = new Array(10);
 
-        //x: 132 ish
-        //z: 116 ish
+          gridArray[0] = column1;
+          gridArray[1] = column2;
+          gridArray[2] = column3;
+          gridArray[3] = column4;
+          gridArray[4] = column5;
+          gridArray[5] = column6;
+          gridArray[6] = column7;
+          gridArray[7] = column8;
+          gridArray[8] = column9;
+          gridArray[9] = column10;
+
+
+        //x: MIN -70 MAX 62 = 132
+        //z: MIN -43 MAX 74 = 117
+        // each grid square should be 13.2 x and 11.7 z
         
         // create button, if button is clicked, it will show and calculate heat map
         // display 10x10 table, each cell will have a certain color
         // green for never visited, red for a lot of activity
 
+        // check every frame, figure out which grid square agents are in
+        // calculate agents per frame in each grid square
+        var heatMapbtn = document.createElement("button");
+        heatMapbtn.innerHTML = "Heat Map";
+        heatMapbtn.setAttribute("onclick", heatMap());
+        document.body.appendChild(heatMapbtn);
 
+        function heatMap()
+        {
+          let currentFrame = crowdSetup.agentPositions.length;
+          
+          let xSegVal = 13.2;
+          let zSegVal = 11.7;
+
+          let xStartVal = -70;
+          let zStartVal = -43;
+
+          for (let i = 0; i < currentFrame; i++)
+          {
+            crowdSetup.agentPositions[i].forEach(agent => {
+                let xSection = Math.floor((agent.x - xStartVal) / xSegVal);
+                let zSection = Math.floor((agent.z - zStartVal) / zSegVal);
+                gridArray[xSection][zSection]++;
+            })
+          }
+
+          for (let i = 0; i < gridArray.length; i++)
+          {
+            for (let j = 0; j < gridArray[i].length; j++)
+            {
+              gridArray[i][j] / currentFrame;
+              console.log("Row: " + i + ", Column: " + j + "; " + gridArray[i][j] + " agents/frame");
+            }
+          }
+        }
+        
         // TABLE OF COMPUTER ENTRIES - can add new columns as needed
         var table = document.getElementById("ComputerEntryTable");
         // title row
@@ -186,13 +234,11 @@
         fillComputerTable();
 
         //Show FPS Counter
-        //Comment this line if you don't want to show the FPS counter
         // SCORING FUNCTION GRAPH
         //javascript: (function () { var script = document.createElement('script'); script.onload = function () { var stats = new Stats(); document.body.appendChild(stats.dom); requestAnimationFrame(function loop() { stats.update(); requestAnimationFrame(loop) }); }; script.src = '//mrdoob.github.io/stats.js/build/stats.min.js'; document.head.appendChild(script); })()
         var stats = new Stats();
         //AGENTS IN SIMULATION PER FRAME
         var xPanel = stats.addPanel( new Stats.Panel( 'AGENTS', '#ff8', '#221' ) );
-        //var yPanel = stats.addPanel( new Stats.Panel( 'y', '#f8f', '#212' ) );
         stats.showPanel(2);
         stats.dom.style.position = 'fixed';
         stats.dom.style.float = 'left';
