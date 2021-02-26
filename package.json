@@ -21,13 +21,12 @@
   "homepage": "https://github.com/crowdedjs/examples#readme",
   "dependencies": {
     "@crowdedjs/assets": "^0.1.5",
-    "@crowdedjs/crowd-setup": "^0.1.3",
+    "@crowdedjs/crowd-setup": "^0.1.5",
     "@crowdedjs/fluent-behavior-tree": "0.0.1",
     "@crowdedjs/math": "0.0.2",
     "@crowdedjs/objs": "^0.1.0",
     "@crowdedjs/recast-detour": "^0.1.1",
     "@crowdedjs/worker": "^0.2.2",
-    "@crowdedjs/assets" : "^0.1.5",
     "axios": "^0.21.1",
     "three": "^0.124.0"
   },
