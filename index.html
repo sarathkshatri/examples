@@ -159,17 +159,17 @@
               gridArray[i][j] = gridArray[i][j] / currentFrame;
               
               // TABLE FOR HEAT MAP GRID
-              var heatMapTable = document.getElementById("HeatMapTable");
+              //var heatMapTable = document.getElementById("HeatMapTable");
               //titleCell.innerHTML = "Computer Entry";
               
-              for (let k = 0; k < 10; k++)
-              {
-                var heatMapRow = heatMapTable.insertRow(k);
-                for (let l = 0; l < 10; l++)
-                {
-                  var heatMapCell = heatMapRow.insertCell(l);
-                }
-              }
+              // for (let k = 0; k < 10; k++)
+              // {
+              //   var heatMapRow = heatMapTable.insertRow(k);
+              //   for (let l = 0; l < 10; l++)
+              //   {
+              //     var heatMapCell = heatMapRow.insertCell(l);
+              //   }
+              // }
 
               console.log("Row: " + (i + 1) + ", Column: " + (j + 1) + "; " + gridArray[i][j] + " agents/frame");
             }
@@ -289,7 +289,7 @@
   </script>
   
   <div class="HeatMap">
-    <style>
+    <!-- <style>
       table#heatMapTable {
         font-family: arial, sans-serif;
         border-collapse: collapse;
@@ -304,12 +304,7 @@
         overflow:auto;
       }
       
-      /* td, th {
-        border: 1px solid #dddddd;
-        text-align: left;
-        padding: 8px;
-      } */
-    </style>
+    </style> -->
     
     <style>
         button#heatMap {
@@ -328,7 +323,7 @@
       }
     </style> 
 
-    <table id = "HeatMapTable"></table> 
+    <!-- <table id = "HeatMapTable"></table>  -->
     
     <button id="heatMap" type="button" onclick="heatMap()">Heat Map</button>
 
