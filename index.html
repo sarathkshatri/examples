@@ -98,20 +98,31 @@
         let crowdSetup = new CrowdSetup(objValue, agentConstants, params.secondsOfSimulation, params.millisecondsBetweenFrames, locationValue, window, document.body, colorFunction, simulations, "./crowd-setup/");
         //
 
+        //x: MIN -70 MAX 62 = 132
+        //z: MIN -43 MAX 74 = 117
+        // each grid square should be 13.2 x and 11.7 z
         
-        // HEAT MAP
-        // Create a 10x10 grid
-        var gridArray = new Array(10);
-          var column1 = new Array(10);
-          var column2 = new Array(10);
-          var column3 = new Array(10);
-          var column4 = new Array(10);
-          var column5 = new Array(10);
-          var column6 = new Array(10);
-          var column7 = new Array(10);
-          var column8 = new Array(10);
-          var column9 = new Array(10);
-          var column10 = new Array(10);
+        // create button, if button is clicked, it will show and calculate heat map
+        // display 10x10 table, each cell will have a certain color
+        // green for never visited, red for a lot of activity
+
+        // check every frame, figure out which grid square agents are in
+        // calculate agents per frame in each grid square
+
+        window.heatMap = ()=>{
+          // HEAT MAP
+          // Create a 10x10 grid
+          var gridArray = new Array(10);
+          var column1 = []; (column1 = []).length = 10; column1.fill(0);
+          var column2 = []; (column2 = []).length = 10; column2.fill(0);
+          var column3 = []; (column3 = []).length = 10; column3.fill(0);
+          var column4 = []; (column4 = []).length = 10; column4.fill(0);
+          var column5 = []; (column5 = []).length = 10; column5.fill(0);
+          var column6 = []; (column6 = []).length = 10; column6.fill(0);
+          var column7 = []; (column7 = []).length = 10; column7.fill(0);
+          var column8 = []; (column8 = []).length = 10; column8.fill(0);
+          var column9 = []; (column9 = []).length = 10; column9.fill(0);
+          var column10 = []; (column10 = []).length = 10; column10.fill(0);
 
           gridArray[0] = column1;
           gridArray[1] = column2;
@@ -124,27 +135,8 @@
           gridArray[8] = column9;
           gridArray[9] = column10;
 
-
-        //x: MIN -70 MAX 62 = 132
-        //z: MIN -43 MAX 74 = 117
-        // each grid square should be 13.2 x and 11.7 z
-        
-        // create button, if button is clicked, it will show and calculate heat map
-        // display 10x10 table, each cell will have a certain color
-        // green for never visited, red for a lot of activity
-
-        // check every frame, figure out which grid square agents are in
-        // calculate agents per frame in each grid square
-        
-        // var heatMapbtn = document.createElement("button");
-        // heatMapbtn.innerHTML = "Heat Map";
-        // heatMapbtn.setAttribute("onclick", heatMap());
-        // document.body.appendChild(heatMapbtn);
-
-        function heatMap()
-        {
           let currentFrame = crowdSetup.agentPositions.length;
-          
+
           let xSegVal = 13.2;
           let zSegVal = 11.7;
 
@@ -164,12 +156,26 @@
           {
             for (let j = 0; j < gridArray[i].length; j++)
             {
-              gridArray[i][j] / currentFrame;
+              gridArray[i][j] = gridArray[i][j] / currentFrame;
+              
+              // TABLE FOR HEAT MAP GRID
+              var heatMapTable = document.getElementById("HeatMapTable");
+              //titleCell.innerHTML = "Computer Entry";
+              
+              for (let k = 0; k < 10; k++)
+              {
+                var heatMapRow = heatMapTable.insertRow(k);
+                for (let l = 0; l < 10; l++)
+                {
+                  var heatMapCell = heatMapRow.insertCell(l);
+                }
+              }
+
               console.log("Row: " + (i + 1) + ", Column: " + (j + 1) + "; " + gridArray[i][j] + " agents/frame");
             }
           }
         }
-        
+
         // TABLE OF COMPUTER ENTRIES - can add new columns as needed
         var table = document.getElementById("ComputerEntryTable");
         // title row
@@ -282,32 +288,60 @@
       // })
   </script>
   
-  <button id="heatMapBtn" type="button" onclick="heatMap()">Heat Map</button>
-  <style>
-    button#heatMapBtn {
-          position: absolute;
-          bottom: 50%;
-          left: 1%;
-          background-color: Gray;
-          border: none;
-          color: black;
-          padding: 15px 32px;
-          text-align: center;
-          text-decoration: none;
-          z-index: 99;
-          display: inline-block;
-          font-size: 16px;
-        }
-  </style>
-  
+  <div class="HeatMap">
+    <style>
+      table#heatMapTable {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        position: absolute;
+        bottom: 50%;
+        right: 50%;
+        height: 500px;
+        width: 500px;
+        z-index: 99;
+        display: block;
+        table-layout:fixed;
+        overflow:auto;
+      }
+      
+      /* td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      } */
+    </style>
+    
+    <style>
+        button#heatMap {
+        position: absolute;
+        bottom: 50%;
+        left: 1%;
+        background-color: Gray;
+        border: none;
+        color: black;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        z-index: 99;
+        display: inline-block;
+        font-size: 16px;
+      }
+    </style> 
+
+    <table id = "HeatMapTable"></table> 
+    
+    <button id="heatMap" type="button" onclick="heatMap()">Heat Map</button>
+
+  </div>
+
   <div class="ComputerEntries">
     <style>
-      table {
+      table#ComputerEntryTable {
         font-family: arial, sans-serif;
         border-collapse: collapse;
         position: absolute;
         bottom: 1%;
-        left: 1%;
+        right: 1%;
         height: 200px;
         width: 250px;
         z-index: 99;
@@ -333,26 +367,11 @@
     <table id = "ComputerEntryTable"></table> 
      
     <button id="btn" type="button" onclick="hideTable()">Hide/View Table</button>
-    
+
     <style>
       button#btn {
         position: absolute;
         bottom: 25%;
-        left: 1%;
-        background-color: Gray;
-        border: none;
-        color: black;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        z-index: 99;
-        display: inline-block;
-        font-size: 16px;
-      }
-
-      button#heatMapBtn {
-        position: absolute;
-        bottom: 50%;
         left: 1%;
         background-color: Gray;
         border: none;
