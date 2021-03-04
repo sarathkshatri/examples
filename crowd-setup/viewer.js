@@ -298,6 +298,31 @@ function updateAgent(three, agent) {
   }
 }
 
+//
+function heatMapSquares(three, data) {
+
+  for (let i = 0; i < data.length; i++)
+  {
+    for (let j = 0; j < data[i].length; j++)
+    {
+      // what do the last three parameters of CubeGeometry do?
+      let object = new THREE.Mesh(new THREE.CubeGeometry(40, .05, 25), new THREE.MeshStandardMaterial({
+        roughness: 0,
+        metalness: 0,
+        color: new THREE.Color(0x00ff00),
+      }))
+
+      object.position.set((i * 10) - 50, .1, (j * 10) - 29);
+
+      three.scene.add(object);
+    }
+  }
+}
+//
+
+
+
+
 function animate() {
   const delta = clock.getDelta();
 
@@ -327,5 +352,7 @@ export {
   addAgent, //Add an agent to the simulation
   updateAgent,  //Update an agent in the simulation
   render, //Render the scene
-  hasBooted
+  hasBooted,
+  
+  heatMapSquares
 };
