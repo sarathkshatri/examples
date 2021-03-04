@@ -36,6 +36,8 @@
 
     import index from "./crowd-setup/index.js"
 
+    import wallGenerator from "./wallGenerator.js"
+
     let params = {};
 
     //Change to the cdn in production
@@ -172,6 +174,19 @@
               // }
 
               console.log("Row: " + (i + 1) + ", Column: " + (j + 1) + "; " + gridArray[i][j] + " agents/frame");
+
+              // adding square walls
+              //wallGenerator(width, length, height, baseName, textureOptions, wOffset = 0, lOffset = 0, hOffset = 0, vOffset = 0)
+              
+              // fs.writeFileSync(filePath + `.obj`, "\n");
+              // let vOffset = 0;
+              // vOffset = wallGenerator(parameters..., vOffset)
+              // vOffset = wallGenerator(parameters..., vOffset)
+              // etc. 
+
+              fs.writeFileSync("./wallGenerator.obj", "\n");
+              let vOffset = 0;
+              vOffset = wallGenerator(10, 10, 10, "temp", {}, 0, 0, 0, vOffset);
             }
           }
         }
