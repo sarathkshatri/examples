@@ -304,17 +304,22 @@ function heatMapSquares(three, data) {
   for (let i = 0; i < data.length; i++)
   {
     for (let j = 0; j < data[i].length; j++)
-    {
+    {    
       // what do the last three parameters of CubeGeometry do?
-      let object = new THREE.Mesh(new THREE.CubeGeometry(40, .05, 25), new THREE.MeshStandardMaterial({
+      let object = new THREE.Mesh(new THREE.CubeGeometry(11, .05, 10), new THREE.MeshStandardMaterial({
         roughness: 0,
         metalness: 0,
-        color: new THREE.Color(0x00ff00),
+        // might need to adjust the colors later
+        color: new THREE.Color(data[i][j] * 90, 0, 0),
       }))
 
-      object.position.set((i * 10) - 50, .1, (j * 10) - 29);
+      // the console print statement from index.html, the bottom left corner is 
+      // row 1 column 1
+      object.position.set((i * 13.5) - 65, .1, (j * 12) - 38);
 
       three.scene.add(object);
+     
+      // don't know how to remove or make this transparent
     }
   }
 }

@@ -160,24 +160,8 @@
             for (let j = 0; j < gridArray[i].length; j++)
             {
               gridArray[i][j] = gridArray[i][j] / currentFrame;
-              
-              // TABLE FOR HEAT MAP GRID
-              //var heatMapTable = document.getElementById("HeatMapTable");
-              //titleCell.innerHTML = "Computer Entry";
-              
-              // for (let k = 0; k < 10; k++)
-              // {
-              //   var heatMapRow = heatMapTable.insertRow(k);
-              //   for (let l = 0; l < 10; l++)
-              //   {
-              //     var heatMapCell = heatMapRow.insertCell(l);
-              //   }
-              // }
-
-              console.log("Row: " + (i + 1) + ", Column: " + (j + 1) + "; " + gridArray[i][j] + " agents/frame");
-
-              
-
+            
+              //console.log("Row: " + (i + 1) + ", Column: " + (j + 1) + "; " + gridArray[i][j] + " agents/frame");
             }
           }
           // adding square walls
@@ -297,24 +281,7 @@
       // })
   </script>
   
-  <div class="HeatMap">
-    <!-- <style>
-      table#heatMapTable {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        position: absolute;
-        bottom: 50%;
-        right: 50%;
-        height: 500px;
-        width: 500px;
-        z-index: 99;
-        display: block;
-        table-layout:fixed;
-        overflow:auto;
-      }
-      
-    </style> -->
-    
+  <div class="HeatMap">    
     <style>
         button#heatMap {
         position: absolute;
@@ -331,8 +298,6 @@
         font-size: 16px;
       }
     </style> 
-
-    <!-- <table id = "HeatMapTable"></table>  -->
     
     <button id="heatMap" type="button" onclick="heatMap()">Heat Map</button>
 
